@@ -1,0 +1,145 @@
+﻿<UserControl x:Class="MonitoringApp.Views.StatisticsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MonitoringApp.Views" 
+             xmlns:viewModels="clr-namespace:MonitoringApp.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="1050">
+
+    <UserControl.DataContext>
+        <viewModels:StatisticsViewModel/>
+    </UserControl.DataContext>
+
+    <Grid Background="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="1" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <TextBlock Text="Other statistics" VerticalAlignment="Center" Foreground="#3F4C5D" FontSize="15" FontWeight="Bold"/>
+            </Grid>
+
+            <Grid Grid.Column="1" HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="True" Margin="10">
+                        <materialDesign:PopupBox.ToggleContent>
+                            <materialDesign:PackIcon Kind="CalendarRange" Foreground="DeepSkyBlue" />
+                        </materialDesign:PopupBox.ToggleContent>
+                        <StackPanel Width="400">
+                            <Border  CornerRadius="5" Background="White" Margin="10">
+                                <Grid>
+                                    <StackPanel Margin="50,10,50,10">
+                                        <TextBlock Text="Okres wyświetlania" HorizontalAlignment="Center"></TextBlock>
+                                        <DockPanel>
+                                            <TextBlock Text="First" Margin="10"/>
+                                            <TextBox Text = "{Binding Path=beginId, Source={x:Static Application.Current}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DockPanel>
+                                        <DockPanel>
+                                            <TextBlock Text="Last" Margin="10"/>
+                                            <TextBox Text = "{Binding Path=endId, Source={x:Static Application.Current}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DockPanel>
+                                        <DockPanel/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+                    <Button Width="50" Command="{Binding RefreshCommand}"  Background="Transparent" BorderThickness="0">
+                        <materialDesign:PackIcon Kind="Refresh" Foreground="DeepSkyBlue"  />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"  CornerRadius="5" Background="White" Margin="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="8*"/>
+
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="Time model"></TextBlock>
+
+                    <Grid Grid.Row="1">
+                      
+
+                        <DataGrid Foreground="Black" Background="White" Grid.Row="1" Margin="10" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding TimeModeValues }">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name"  Binding="{Binding StatName}"/>
+                                <DataGridTextColumn Header="Time (s)" Binding="{Binding TimeValue}"/>
+                                <DataGridTextColumn Header="Activity (%)" Binding="{Binding TimeAcitivty}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                    </Grid>
+
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1"  CornerRadius="5" Background="White" Margin="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="8*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="Top 10 sessions"></TextBlock>
+                    <DataGrid Foreground="Black" Background="White" Grid.Row="1" Margin="10" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding SessionActivityValues }">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Sid" Binding="{Binding Sid}"/>
+                            <DataGridTextColumn Header="Username" Binding="{Binding UsernameE}"/>
+                            <DataGridTextColumn Header="Program" Binding="{Binding Program}"/>
+                            <DataGridTextColumn Header="Activity (%)"  Binding="{Binding Activity}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="2">
+            <Border  CornerRadius="5" Background="White" Margin="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="8*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="File IO"></TextBlock>
+                    <DataGrid Foreground="Black" Background="White" Grid.Row="1" Margin="10" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding FileIoValues }">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="File name"  Binding="{Binding FileName}"/>
+                            <DataGridTextColumn Header="Block reads" Binding="{Binding BlockReads}"/>
+                            <DataGridTextColumn Header="Block writes" Binding="{Binding BlockWrites}"/>
+                            <DataGridTextColumn Header="Write time" Binding="{Binding WriteTime}"/>
+                            <DataGridTextColumn Header="Read time" Binding="{Binding ReadTime}"/>
+                            <DataGridTextColumn Header="Total IO" Binding="{Binding TotalIO}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+        </Grid>
+
+    </Grid>
+</UserControl>
+

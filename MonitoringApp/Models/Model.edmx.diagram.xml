@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d523acbb284b4041a127ec7a2fabba3e" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.INSTANCE_PARMS" Width="1.5" PointX="0.75" PointY="21.25" />
+        <EntityTypeShape EntityType="Model.IO_PARMS" Width="1.5" PointX="5.25" PointY="31.25" />
+        <EntityTypeShape EntityType="Model.LATCH_PARMS" Width="1.5" PointX="5.25" PointY="34.75" />
+        <EntityTypeShape EntityType="Model.LIBRARY_CACHE_PARMS" Width="1.5" PointX="5.25" PointY="40.125" />
+        <EntityTypeShape EntityType="Model.ROLLBACK_PARMS" Width="1.5" PointX="5.25" PointY="19.75" />
+        <EntityTypeShape EntityType="Model.ROW_CACHE_PARMS" Width="1.5" PointX="5.25" PointY="25.5" />
+        <EntityTypeShape EntityType="Model.SESS_PARMS" Width="1.5" PointX="5.25" PointY="22.5" />
+        <EntityTypeShape EntityType="Model.SNAPSHOT_PARMS" Width="1.5" PointX="3" PointY="20" />
+        <EntityTypeShape EntityType="Model.SQL_INFO_PARMS" Width="1.5" PointX="5.25" PointY="5.5" />
+        <EntityTypeShape EntityType="Model.SYS_PARMS" Width="1.5" PointX="5.25" PointY="17" />
+        <EntityTypeShape EntityType="Model.SYSSTAT_PARMS" Width="1.5" PointX="5.25" PointY="14.25" />
+        <EntityTypeShape EntityType="Model.SYSTEM_EVENT_BG_PARMS" Width="1.5" PointX="5.25" PointY="28.25" />
+        <EntityTypeShape EntityType="Model.SYSTEM_EVENT_FG_PARMS" Width="1.5" PointX="5.25" PointY="11.375" />
+        <EntityTypeShape EntityType="Model.TIME_MODEL_PARMS" Width="1.5" PointX="5.25" PointY="37.5" />
+        <EntityTypeShape EntityType="Model.WAIT_CLASS_PARMS" Width="1.5" PointX="5.25" PointY="2.75" />
+        <AssociationConnector Association="Model.SNAPSHOT_PARMS_FK" />
+        <AssociationConnector Association="Model.IO_PARMS_FK" />
+        <AssociationConnector Association="Model.LATCH_FK" />
+        <AssociationConnector Association="Model.LIBRARY_CASHE_FK" />
+        <AssociationConnector Association="Model.ROLLBACK_FK" />
+        <AssociationConnector Association="Model.ROW_CACHE_FK" />
+        <AssociationConnector Association="Model.SESS_PARMS_FK" />
+        <AssociationConnector Association="Model.SQL_INFO_PARMS_FK" />
+        <AssociationConnector Association="Model.SYS_PARMS_FK" />
+        <AssociationConnector Association="Model.SYSSTAT_PARMS_FK" />
+        <AssociationConnector Association="Model.SYSTEM_EVENT_BG_PARMS_FK" />
+        <AssociationConnector Association="Model.SYSTEM_EVENT_FG_PARMS_FK" />
+        <AssociationConnector Association="Model.TIME_MODEL_PARMS_FK" />
+        <AssociationConnector Association="Model.WAIT_CLASS_PARMS_FK" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

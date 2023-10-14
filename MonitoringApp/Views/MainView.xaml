@@ -1,0 +1,80 @@
+﻿<Window x:Class="MonitoringApp.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:viewModels="clr-namespace:MonitoringApp.ViewModels" 
+        xmlns:local="clr-namespace:MonitoringApp.Views"
+        Height="750" Width="1050">
+
+
+    <Window.DataContext>
+        <viewModels:MainViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModels:AccountViewModel}">
+            <local:AccountView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:EventsViewModel}">
+            <local:EventsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
+            <local:SettingsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:InstanceEffieciencyViewModel}">
+            <local:InstanceEfficiencyView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:QueriesViewModel}">
+            <local:QueriesView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:StatisticsViewModel}">
+            <local:StatisticsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:SqlInfoViewModel}">
+            <local:SqlInfoView/>
+        </DataTemplate>
+    </Window.Resources>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Background="DodgerBlue"/>
+
+        <Grid Grid.Row="0" Margin="50 0 50 0" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <TextBlock Text="Oracle Database Performance Monitoring System" Margin="10 0 0 0" Foreground="WhiteSmoke" FontSize="25"  FontWeight="Bold" />
+            </Grid>
+            <StackPanel Grid.Row="1"  Orientation="Horizontal">
+                <Menu Background="DodgerBlue" Foreground="WhiteSmoke" >
+                    <MenuItem Header="_Queries"  VerticalAlignment="Center" >
+                        <MenuItem Header="_Top queries" Command="{Binding QueriesCommand }"  />
+                        <MenuItem Header="_Query analysis" Command="{Binding SqlInfoCommand }"  />
+                    </MenuItem>
+                    <MenuItem Header="_Events"  VerticalAlignment="Center" Command="{Binding EventsCommand }"/>
+
+                    <MenuItem Header="_Statistics"  VerticalAlignment="Center">
+                        <MenuItem Header="_Instance Efficiency Percentages" VerticalAlignment="Center" Command="{Binding InstanceEffieciencyCommand}"/>
+                        <MenuItem Header="_Other statistics" Command="{Binding StatisticsCommand }"  />
+                    </MenuItem>
+                    <MenuItem Header="_Settings" VerticalAlignment="Center" Command="{Binding SettingsCommand}"/>
+                    <MenuItem Header="_Account" VerticalAlignment="Center" Command="{Binding AccountCommand}"/>
+                </Menu>
+            </StackPanel>
+        </Grid>
+        <Border Grid.Row="1" Background="WhiteSmoke"/>
+        <Grid Grid.Row="1">
+            <ContentControl Content="{Binding SelectedViewModel}"/>
+        </Grid>
+    </Grid>
+</Window>
+
+

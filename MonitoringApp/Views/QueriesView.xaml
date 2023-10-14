@@ -1,0 +1,384 @@
+﻿<UserControl x:Class="MonitoringApp.Views.QueriesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MonitoringApp.Views" 
+             xmlns:viewModels="clr-namespace:MonitoringApp.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="1050">
+   
+    <UserControl.DataContext>
+        <viewModels:QueriesViewModel/>
+    </UserControl.DataContext>
+
+    <Grid Background="WhiteSmoke" Margin="0,0,0,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="60"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="1" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" >
+                <StackPanel Margin="4" >
+                    <TextBlock  Text="Statements consuming the most resources" VerticalAlignment="Center" Foreground="#3F4C5D" FontSize="15" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding SortOption}" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="#3F4C5D" FontSize="10" FontWeight="Bold"></TextBlock>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Column="1" HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="True" Margin="10">
+                        <materialDesign:PopupBox.ToggleContent>
+                            <materialDesign:PackIcon Kind="CalendarRange" Foreground="DeepSkyBlue" />
+                        </materialDesign:PopupBox.ToggleContent>
+                        <StackPanel Width="400">
+                            <Border  CornerRadius="5" Background="White" Margin="10">
+                                <Grid>
+                                    <StackPanel Margin="50,10,50,10">
+                                        <TextBlock Text="Interval" HorizontalAlignment="Center"></TextBlock>
+                                        <DockPanel>
+                                            <TextBlock Text="First" Margin="10"/>
+                                            <TextBox Text = "{Binding Path=beginId, Source={x:Static Application.Current}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DockPanel>
+                                        <DockPanel>
+                                            <TextBlock Text="Last" Margin="10"/>
+                                            <TextBox Text = "{Binding Path=endId, Source={x:Static Application.Current}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DockPanel>
+                                        <DockPanel/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+                    <Button Width="50" Command="{Binding RefreshCommand}"  Background="Transparent" BorderThickness="0">
+                        <materialDesign:PackIcon Kind="Refresh" Foreground="DeepSkyBlue"  />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Border Grid.Column="1" Grid.Row="1" Margin="5" Background="White" CornerRadius="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="3.5*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="1" BorderBrush="#B8C0C9" BorderThickness="1 0 1 0" Margin="0 10 0 10"/>
+                <TextBox Grid.Column="0" BorderThickness="0" IsReadOnly="True"  Text="{Binding QueryParmsValues[0].SQLid}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                <lvc:PieChart Series="{Binding SeriesCollection1}" Grid.Column="1" InnerRadius="12" Margin="5"
+                              Hoverable="False" DataTooltip="{x:Null}"/>
+
+
+                <UniformGrid Grid.Column="2" Columns="5" VerticalAlignment="Center" >
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Executions"/>
+                            <TextBlock Text="{Binding QueryParmsValues[0].Executions}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Elapsed time"/>
+                            <TextBlock Text="{Binding QueryParmsValues[0].ElapsedTime,StringFormat=' {0} ms'}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5 15 0 0">
+                            <TextBlock Text="{Binding PercentValues[0],StringFormat=' {0} %'}" Foreground="DodgerBlue" FontWeight="Bold"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="CPU time"/>
+                            <TextBlock Text="{Binding QueryParmsValues[0].CpuTime,StringFormat=' {0} ms'}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5 15 0 0">
+                            <TextBlock Text="{Binding PercentValues[1],StringFormat=' {0} %'}" Foreground="Red" FontWeight="Bold"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Buffer gets"/>
+                            <TextBlock Text="{Binding QueryParmsValues[0].BufferGets}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Disk reads"/>
+                            <TextBlock Text="{Binding QueryParmsValues[0].DiskReads}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </UniformGrid>
+            </Grid>
+        </Border>
+
+        <Border Grid.Column="1" Grid.Row="2" Margin="5" Background="White" CornerRadius="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="3.5*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="1" BorderBrush="#B8C0C9" BorderThickness="1 0 1 0" Margin="0 10 0 10"/>
+                <TextBox Grid.Column="0" BorderThickness="0" IsReadOnly="True"  Text="{Binding QueryParmsValues[1].SQLid}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                <lvc:PieChart Series="{Binding SeriesCollection2}" Grid.Column="1" InnerRadius="12" Margin="5"
+                              Hoverable="False" DataTooltip="{x:Null}"/>
+
+
+                <UniformGrid Grid.Column="2" Columns="5" VerticalAlignment="Center" >
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Executions"/>
+                            <TextBlock Text="{Binding QueryParmsValues[1].Executions}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Elapsed time"/>
+                            <TextBlock Text="{Binding QueryParmsValues[1].ElapsedTime,StringFormat=' {0} ms'}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5 15 0 0">
+                            <TextBlock Text="{Binding PercentValues[2],StringFormat=' {0} %'}" Foreground="DodgerBlue" FontWeight="Bold"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="CPU time"/>
+                            <TextBlock Text="{Binding QueryParmsValues[1].CpuTime,StringFormat=' {0} ms'}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5 15 0 0">
+                            <TextBlock Text="{Binding PercentValues[3],StringFormat=' {0} %'}" Foreground="Red" FontWeight="Bold"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Buffer gets"/>
+                            <TextBlock Text="{Binding QueryParmsValues[1].BufferGets}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Disk reads"/>
+                            <TextBlock Text="{Binding QueryParmsValues[1].DiskReads}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </UniformGrid>
+            </Grid>
+        </Border>
+
+        <Border Grid.Column="1" Grid.Row="3" Margin="5" Background="White" CornerRadius="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="3.5*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="1" BorderBrush="#B8C0C9" BorderThickness="1 0 1 0" Margin="0 10 0 10"/>
+                <TextBox Grid.Column="0" BorderThickness="0" IsReadOnly="True"  Text="{Binding QueryParmsValues[2].SQLid}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                <lvc:PieChart Series="{Binding SeriesCollection3}" Grid.Column="1" InnerRadius="12" Margin="5"
+                              Hoverable="False" DataTooltip="{x:Null}"/>
+
+
+                <UniformGrid Grid.Column="2" Columns="5" VerticalAlignment="Center" >
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Executions"/>
+                            <TextBlock Text="{Binding QueryParmsValues[2].Executions}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Elapsed time"/>
+                            <TextBlock Text="{Binding QueryParmsValues[2].ElapsedTime,StringFormat=' {0} ms'}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5 15 0 0">
+                            <TextBlock Text="{Binding PercentValues[4],StringFormat=' {0} %'}" Foreground="DodgerBlue" FontWeight="Bold"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="CPU time"/>
+                            <TextBlock Text="{Binding QueryParmsValues[2].CpuTime,StringFormat=' {0} ms'}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5 15 0 0">
+                            <TextBlock Text="{Binding PercentValues[5],StringFormat=' {0} %'}" Foreground="Red" FontWeight="Bold"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Buffer gets"/>
+                            <TextBlock Text="{Binding QueryParmsValues[2].BufferGets}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Disk reads"/>
+                            <TextBlock Text="{Binding QueryParmsValues[2].DiskReads}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </UniformGrid>
+            </Grid>
+        </Border>
+
+        <Border Grid.Column="1" Grid.Row="4" Margin="5" Background="White" CornerRadius="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="3.5*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="1" BorderBrush="#B8C0C9" BorderThickness="1 0 1 0" Margin="0 10 0 10"/>
+                <TextBox Grid.Column="0" BorderThickness="0" IsReadOnly="True"  Text="{Binding QueryParmsValues[3].SQLid}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                <lvc:PieChart Series="{Binding SeriesCollection4}" Grid.Column="1" InnerRadius="12" Margin="5"
+                              Hoverable="False" DataTooltip="{x:Null}"/>
+
+
+                <UniformGrid Grid.Column="2" Columns="5" VerticalAlignment="Center" >
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Executions"/>
+                            <TextBlock Text="{Binding QueryParmsValues[3].Executions}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Elapsed time"/>
+                            <TextBlock Text="{Binding QueryParmsValues[3].ElapsedTime,StringFormat=' {0} ms'}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5 15 0 0">
+                            <TextBlock Text="{Binding PercentValues[6],StringFormat=' {0} %'}" Foreground="DodgerBlue" FontWeight="Bold"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="CPU time"/>
+                            <TextBlock Text="{Binding QueryParmsValues[3].CpuTime,StringFormat=' {0} ms'}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5 15 0 0">
+                            <TextBlock Text="{Binding PercentValues[7],StringFormat=' {0} %'}" Foreground="Red" FontWeight="Bold"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Buffer gets"/>
+                            <TextBlock Text="{Binding QueryParmsValues[3].BufferGets}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Disk reads"/>
+                            <TextBlock Text="{Binding QueryParmsValues[3].DiskReads}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </UniformGrid>
+            </Grid>
+        </Border>
+
+        <Border Grid.Column="1" Grid.Row="5" Margin="5" Background="White" CornerRadius="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="3.5*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="1" BorderBrush="#B8C0C9" BorderThickness="1 0 1 0" Margin="0 10 0 10"/>
+                <TextBox Grid.Column="0" BorderThickness="0" IsReadOnly="True"  Text="{Binding QueryParmsValues[4].SQLid}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                <lvc:PieChart Series="{Binding SeriesCollection5}" Grid.Column="1" InnerRadius="12" Margin="5"
+                              Hoverable="False" DataTooltip="{x:Null}"/>
+
+
+                <UniformGrid Grid.Column="2" Columns="5" VerticalAlignment="Center" >
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Executions"/>
+                            <TextBlock Text="{Binding QueryParmsValues[4].Executions}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Elapsed time"/>
+                            <TextBlock Text="{Binding QueryParmsValues[4].ElapsedTime,StringFormat=' {0} ms'}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5 15 0 0">
+                            <TextBlock Text="{Binding PercentValues[8],StringFormat=' {0} %'}" Foreground="DodgerBlue" FontWeight="Bold"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="CPU time"/>
+                            <TextBlock Text="{Binding QueryParmsValues[4].CpuTime,StringFormat=' {0} ms'}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5 15 0 0">
+                            <TextBlock Text="{Binding PercentValues[9],StringFormat=' {0} %'}" Foreground="Red" FontWeight="Bold"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Buffer gets"/>
+                            <TextBlock Text="{Binding QueryParmsValues[4].BufferGets}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel>
+                            <TextBlock Text="Disk reads"/>
+                            <TextBlock Text="{Binding QueryParmsValues[4].DiskReads}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </UniformGrid>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Column="0" Grid.Row="3">
+            <Button Background="Transparent" BorderThickness="0" Command="{Binding BackCommand}">
+                <materialDesign:PackIcon Kind="ArrowLeft" Foreground="Black" />
+            </Button>
+        </Grid>
+
+        <Grid Grid.Column="2" Grid.Row="3">
+            <Button Background="Transparent" BorderThickness="0" Command="{Binding NextCommand}">
+                <materialDesign:PackIcon Kind="ArrowRight" Foreground="Black" />
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>
+

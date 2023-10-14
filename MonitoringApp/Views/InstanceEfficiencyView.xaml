@@ -1,0 +1,254 @@
+﻿<UserControl x:Class="MonitoringApp.Views.InstanceEfficiencyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:viewModels="clr-namespace:MonitoringApp.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="1050">
+
+    <UserControl.DataContext>
+        <viewModels:InstanceEffieciencyViewModel/>
+    </UserControl.DataContext>
+
+    <Grid Background="WhiteSmoke" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="1" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" >
+                <TextBlock Text="Instance Efficiency Percentages" VerticalAlignment="Center" Foreground="#3F4C5D" FontSize="15" FontWeight="Bold"/>
+            </Grid>
+            <Grid Grid.Column="1" HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="True" Margin="10">
+                        <materialDesign:PopupBox.ToggleContent>
+                            <materialDesign:PackIcon Kind="CalendarRange" Foreground="DeepSkyBlue" />
+                        </materialDesign:PopupBox.ToggleContent>
+                        <StackPanel Width="400">
+                            <Border  CornerRadius="5" Background="White" Margin="10">
+                                <Grid>
+                                    <StackPanel Margin="50,10,50,10">
+                                        <TextBlock Text="Okres wyświetlania" HorizontalAlignment="Center"></TextBlock>
+                                        <DockPanel>
+                                            <TextBlock Text="First" Margin="10"/>
+                                            <TextBox Text = "{Binding Path=beginId, Source={x:Static Application.Current}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DockPanel>
+                                        <DockPanel>
+                                            <TextBlock Text="Last" Margin="10"/>
+                                            <TextBox Text = "{Binding Path=endId, Source={x:Static Application.Current}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DockPanel>
+                                        <DockPanel/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+                    <Button Width="50" Command="{Binding RefreshCommand}"  Background="Transparent" BorderThickness="0">
+                        <materialDesign:PackIcon Kind="Refresh" Foreground="DeepSkyBlue"  />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+     
+            <Grid Grid.Column="1" Grid.Row="1"  Background="WhiteSmoke">
+                <UniformGrid>
+                    <Border CornerRadius="5" Background="White" Margin="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0"  Margin="15 0 0 0">
+                                <TextBlock Text="Buffer Cache Hit Ratio" Foreground="#3F4C5D"/>
+                                <TextBlock Text="{Binding BufferRatio,StringFormat=' {0} %'}" FontWeight="Bold" Foreground="#3F4C5D" FontSize="28"/>
+                            </StackPanel>
+                            <Grid Grid.Column="1" Grid.Row="0">
+                                <lvc:Gauge Margin="10" LabelsVisibility="Collapsed" Foreground="White" From="0" To="100" Value="{Binding BufferRatio}"/>
+                            </Grid>
+                        </Grid>
+                       
+                        
+                        <Grid Grid.Row="1">
+                            <TextBlock Text="{Binding BufferRatioAlert}" FontWeight="Bold"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        </Grid>
+                        </Grid>
+                    </Border>
+
+
+                    <Border  CornerRadius="5" Background="White" Margin="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0"  Margin="15 0 0 0">
+                                <TextBlock Text="Library Cache Hit Ratio" Foreground="#3F4C5D"/>
+                                <TextBlock Text="{Binding LibraryRatio,StringFormat=' {0} %'}" FontWeight="Bold" Foreground="#3F4C5D" FontSize="28"/>
+                                </StackPanel>
+                                <Grid Grid.Column="1" Grid.Row="0">
+                                <lvc:Gauge  Margin="10" LabelsVisibility="Collapsed"  Foreground="White"  From="0" To="100" Value="{Binding LibraryRatio}"/>
+                                </Grid>
+                            </Grid>
+
+
+                            <Grid Grid.Row="1">
+                                <TextBlock Text="{Binding LibraryRatioAlert}" FontWeight="Bold"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+
+                    <Border  CornerRadius="5" Background="White" Margin="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0"  Margin="15 0 0 0">
+                                <TextBlock Text="Dictionary Ratio" Foreground="#3F4C5D"/>
+                                    <TextBlock Text="{Binding DictionaryRatio,StringFormat=' {0} %'}" FontWeight="Bold" Foreground="#3F4C5D" FontSize="28"/>
+                                </StackPanel>
+                                <Grid Grid.Column="1" Grid.Row="0">
+                                <lvc:Gauge  Margin="10" LabelsVisibility="Collapsed" Foreground="White"   From="0" To="100" Value="{Binding DictionaryRatio}"/>
+                                </Grid>
+                            </Grid>
+
+
+                            <Grid Grid.Row="1">
+                                <TextBlock Text="{Binding DictionaryRatioAlert}" FontWeight="Bold"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                  
+
+                    <Border  CornerRadius="5" Background="White" Margin="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0"  Margin="15 0 0 0">
+                                    <TextBlock Text="Sort Ratio" Foreground="#3F4C5D"/>
+                                    <TextBlock Text="{Binding SortRatio,StringFormat=' {0} %'}" FontWeight="Bold" Foreground="#3F4C5D" FontSize="28"/>
+                                </StackPanel>
+                                <Grid Grid.Column="1" Grid.Row="0">
+                                <lvc:Gauge  Margin="10" LabelsVisibility="Collapsed" Foreground="White"   From="0" To="100" Value="{Binding SortRatio}"/>
+                                </Grid>
+                            </Grid>
+
+
+                            <Grid Grid.Row="1">
+                                <TextBlock Text="{Binding SortRatioAlert}" FontWeight="Bold"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                    <Border  CornerRadius="5" Background="White" Margin="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0"  Margin="15 0 0 0">
+                                    <TextBlock Text="Latch Ratio" Foreground="#3F4C5D"/>
+                                    <TextBlock Text="{Binding LatchRatio,StringFormat=' {0} %'}" FontWeight="Bold" Foreground="#3F4C5D" FontSize="28"/>
+                                </StackPanel>
+                                <Grid Grid.Column="1" Grid.Row="0">
+                                <lvc:Gauge  Margin="10" LabelsVisibility="Collapsed" Foreground="White"   From="0" To="100" Value="{Binding LatchRatio}"/>
+                                </Grid>
+                            </Grid>
+
+
+                            <Grid Grid.Row="1">
+                                <TextBlock Text="{Binding LatchRatioAlert}" FontWeight="Bold"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                    <Border  CornerRadius="5" Background="White" Margin="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0"  Margin="15 0 0 0">
+                                <TextBlock Text="Rollback Segment Waits" Foreground="#3F4C5D"/>
+                                    <TextBlock Text="{Binding RollbackRatio,StringFormat=' {0} %'}" FontWeight="Bold" Foreground="#3F4C5D" FontSize="28"/>
+                                </StackPanel>
+                                <Grid Grid.Column="1" Grid.Row="0">
+                                <lvc:Gauge  Margin="10" LabelsVisibility="Collapsed" Foreground="White"   From="0" To="100" Value="{Binding RollbackRatio}"/>
+                                </Grid>
+                            </Grid>
+
+
+                            <Grid Grid.Row="1">
+                                <TextBlock Text="{Binding RollbackRatioAlert}" FontWeight="Bold"  FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+
+
+
+
+            </UniformGrid>
+           
+
+          
+            </Grid>
+     
+    </Grid>
+</UserControl>

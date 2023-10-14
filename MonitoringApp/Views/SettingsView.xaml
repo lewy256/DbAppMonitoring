@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="MonitoringApp.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MonitoringApp.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModels="clr-namespace:MonitoringApp.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="1050">
+
+    <UserControl.DataContext>
+        <viewModels:SettingsViewModel/>
+    </UserControl.DataContext>
+
+
+    <Grid Background="WhiteSmoke">
+       <Grid.ColumnDefinitions>
+           <ColumnDefinition Width="0.9*"/>
+           <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <UniformGrid Rows="3">
+                <Border  CornerRadius="5" Background="White" Margin="10">
+                    <StackPanel Margin="50,0,50,0" VerticalAlignment="Center">
+                        <TextBlock Text="Select snapshots" HorizontalAlignment="Center"></TextBlock>
+                        <DockPanel>
+                            <TextBlock Text="First" Margin="10"/>
+                            <TextBox Text = "{Binding Path=beginId, Source={x:Static Application.Current}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        </DockPanel>
+                        <DockPanel>
+                            <TextBlock Text="Last" Margin="10"/>
+                            <TextBox Text = "{Binding Path=endId, Source={x:Static Application.Current}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DockPanel>
+                        <DockPanel/>
+                    </StackPanel>
+                </Border>
+
+                <Border  CornerRadius="5" Background="White" Margin="10">
+                    <StackPanel Margin="100,10,100,10" VerticalAlignment="Center">
+                        <TextBlock Text="Save snapshots"  HorizontalAlignment="Center"></TextBlock>
+                        <DockPanel>
+                            <TextBlock Text="Period" VerticalAlignment="Center"/>
+                            <TextBox DockPanel.Dock="Left" Text = "{Binding Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10" Width="80"/>
+                            <ComboBox DockPanel.Dock="Right" ItemsSource="{Binding ComboBoxValues}"  
+                                      SelectedItem="{Binding Freq, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        </DockPanel>
+                        <Button Content="Save" Margin="5" Width="130" Command="{Binding SaveCommand}"/>
+                    </StackPanel>
+                </Border>
+
+                <Border  CornerRadius="5" Background="White" Margin="10">
+                    <StackPanel Margin="50,0,50,0" VerticalAlignment="Center">
+                        <TextBlock Text="Delete snapshots" HorizontalAlignment="Center"></TextBlock>
+                        <DockPanel>
+                            <TextBlock Text="First" Margin="10"/>
+                            <TextBox Text = "{Binding firstSnap, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        </DockPanel>
+                        <DockPanel>
+                            <TextBlock Text="Last" Margin="10"/>
+                            <TextBox Text = "{Binding lastSnap, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DockPanel>
+                        <DockPanel/>
+                        <Button Content="Delete" Margin="15" Width="130" Command="{Binding DeleteCommand}"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+        </Grid>
+        <Grid Grid.Column="1">
+            <DataGrid Margin="10" IsReadOnly="True" AutoGenerateColumns="False" Background="White" ItemsSource="{Binding SnapshotParms}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="SNAP ID"  Binding="{Binding SNAP_ID}"/>
+                    <DataGridTextColumn Header="SNAP TIME" Binding="{Binding SNAP_TIME}"/>
+                    <DataGridTextColumn Header="INST ID" Binding="{Binding INST_ID}"/>
+                    <DataGridTextColumn Header="STARTUP TIME" Binding="{Binding STARTUP_TIME}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+   
+</UserControl>

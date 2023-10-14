@@ -1,0 +1,1235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="18.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="INSTANCE_PARMS">
+          <Key>
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="STARTUP_TIME" />
+          </Key>
+          <Property Name="INST_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="STARTUP_TIME" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="DB_VERSION" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="INSTANCE_NAME" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="HOST_NAME" Type="varchar2" MaxLength="64" Nullable="false" />
+          <Property Name="PLATFORM_NAME" Type="varchar2" MaxLength="64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IO_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="FILE_NAME" />
+          </Key>
+          <Property Name="SNAP_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="INST_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="FILE_NAME" Type="varchar2" MaxLength="60" Nullable="false" />
+          <Property Name="BLOCK_READS" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="BLOCK_WRITES" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TOTAL_IO" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="WRITE_TIME" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="READ_TIME" Type="number" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LATCH_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+          </Key>
+          <Property Name="SNAP_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="INST_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="GETS" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="MISSES" Type="number" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LIBRARY_CACHE_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+          </Key>
+          <Property Name="SNAP_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="INST_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PINS" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="RELOADS" Type="number" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ROLLBACK_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+          </Key>
+          <Property Name="SNAP_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="INST_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="WAITS" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="GETS" Type="number" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ROW_CACHE_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+          </Key>
+          <Property Name="SNAP_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="INST_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="GETS" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="GETMISSES" Type="number" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SESS_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="SID_NUM" />
+          </Key>
+          <Property Name="SNAP_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="INST_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="SID_NUM" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="VAL" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="USERNAME" Type="varchar2" MaxLength="32" />
+          <Property Name="PROGRAM_NAME" Type="varchar2" MaxLength="32" />
+        </EntityType>
+        <EntityType Name="SNAPSHOT_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+          </Key>
+          <Property Name="SNAP_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="INST_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="SNAP_TIME" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="STARTUP_TIME" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="SESSION_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="SERIAL#" Type="number" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SQL_INFO_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="SQL_ID" />
+          </Key>
+          <Property Name="SNAP_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="INST_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="SQL_ID" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="PARSE_CALLS" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="LOADS" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="INVALIDATIONS" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ELAPSED_TIME" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CPU_TIME" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="EXECUTIONS" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="APPLICATION_WAIT_TIME" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CONCURRENCY_WAIT_TIME" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="USER_IO_WAIT_TIME" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PLSQL_EXEC_TIME" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="JAVA_EXEC_TIME" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="BUFFER_GETS" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DISK_READS" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DIRECT_WRITES" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ROWS_PROCESSED" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="FETCHES" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="SERIALIZABLE_ABORTS" Type="number" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYS_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="STAT_NAME" />
+          </Key>
+          <Property Name="SNAP_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="INST_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="STAT_NAME" Type="varchar2" MaxLength="8" Nullable="false" />
+          <Property Name="VAL" Type="number" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYSSTAT_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="STAT_NAME" />
+          </Key>
+          <Property Name="SNAP_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="INST_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="STAT_NAME" Type="varchar2" MaxLength="32" Nullable="false" />
+          <Property Name="VAL" Type="number" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYSTEM_EVENT_BG_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="EVENT" />
+          </Key>
+          <Property Name="SNAP_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="INST_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="EVENT" Type="varchar2" MaxLength="60" Nullable="false" />
+          <Property Name="TOTAL_WAITS" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TIME_WAITED" Type="number" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYSTEM_EVENT_FG_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="EVENT" />
+          </Key>
+          <Property Name="SNAP_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="INST_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="EVENT" Type="varchar2" MaxLength="60" Nullable="false" />
+          <Property Name="TOTAL_WAITS_FG" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TIME_WAITED_FG" Type="number" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TIME_MODEL_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="STAT_NAME" />
+          </Key>
+          <Property Name="SNAP_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="INST_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="STAT_NAME" Type="varchar2" MaxLength="64" Nullable="false" />
+          <Property Name="VAL" Type="number" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WAIT_CLASS_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="WAIT_CLASS" />
+          </Key>
+          <Property Name="SNAP_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="INST_ID" Type="number" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="WAIT_CLASS" Type="varchar2" MaxLength="30" Nullable="false" />
+          <Property Name="TIME_WAITED" Type="number" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <Association Name="IO_PARMS_FK">
+          <End Role="SNAPSHOT_PARMS" Type="Self.SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="IO_PARMS" Type="Self.IO_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="IO_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LATCH_FK">
+          <End Role="SNAPSHOT_PARMS" Type="Self.SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LATCH_PARMS" Type="Self.LATCH_PARMS" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="LATCH_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LIBRARY_CASHE_FK">
+          <End Role="SNAPSHOT_PARMS" Type="Self.SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LIBRARY_CACHE_PARMS" Type="Self.LIBRARY_CACHE_PARMS" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="LIBRARY_CACHE_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ROLLBACK_FK">
+          <End Role="SNAPSHOT_PARMS" Type="Self.SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ROLLBACK_PARMS" Type="Self.ROLLBACK_PARMS" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="ROLLBACK_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ROW_CACHE_FK">
+          <End Role="SNAPSHOT_PARMS" Type="Self.SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ROW_CACHE_PARMS" Type="Self.ROW_CACHE_PARMS" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="ROW_CACHE_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SESS_PARMS_FK">
+          <End Role="SNAPSHOT_PARMS" Type="Self.SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SESS_PARMS" Type="Self.SESS_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="SESS_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SNAPSHOT_PARMS_FK">
+          <End Role="INSTANCE_PARMS" Type="Self.INSTANCE_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SNAPSHOT_PARMS" Type="Self.SNAPSHOT_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INSTANCE_PARMS">
+              <PropertyRef Name="INST_ID" />
+              <PropertyRef Name="STARTUP_TIME" />
+            </Principal>
+            <Dependent Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="INST_ID" />
+              <PropertyRef Name="STARTUP_TIME" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SQL_INFO_PARMS_FK">
+          <End Role="SNAPSHOT_PARMS" Type="Self.SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SQL_INFO_PARMS" Type="Self.SQL_INFO_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="SQL_INFO_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_PARMS_FK">
+          <End Role="SNAPSHOT_PARMS" Type="Self.SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SYS_PARMS" Type="Self.SYS_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="SYS_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYSSTAT_PARMS_FK">
+          <End Role="SNAPSHOT_PARMS" Type="Self.SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SYSSTAT_PARMS" Type="Self.SYSSTAT_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="SYSSTAT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYSTEM_EVENT_BG_PARMS_FK">
+          <End Role="SNAPSHOT_PARMS" Type="Self.SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SYSTEM_EVENT_BG_PARMS" Type="Self.SYSTEM_EVENT_BG_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="SYSTEM_EVENT_BG_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYSTEM_EVENT_FG_PARMS_FK">
+          <End Role="SNAPSHOT_PARMS" Type="Self.SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SYSTEM_EVENT_FG_PARMS" Type="Self.SYSTEM_EVENT_FG_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="SYSTEM_EVENT_FG_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TIME_MODEL_PARMS_FK">
+          <End Role="SNAPSHOT_PARMS" Type="Self.SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TIME_MODEL_PARMS" Type="Self.TIME_MODEL_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="TIME_MODEL_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="WAIT_CLASS_PARMS_FK">
+          <End Role="SNAPSHOT_PARMS" Type="Self.SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WAIT_CLASS_PARMS" Type="Self.WAIT_CLASS_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="WAIT_CLASS_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="CHANGE_JOB_PRC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="">
+          <Parameter Name="JOB_NAME" Type="varchar2" Mode="In" />
+          <Parameter Name="PARAM_NAME" Type="varchar2" Mode="In" />
+          <Parameter Name="VAL_NEW" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="DELETE_SNAPSHOTS_PRC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="">
+          <Parameter Name="FIRST_SNAP" Type="number" Mode="In" />
+          <Parameter Name="LAST_SNAP" Type="number" Mode="In" />
+        </Function>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="INSTANCE_PARMS" EntityType="Self.INSTANCE_PARMS" Schema="" store:Type="Tables" />
+          <EntitySet Name="IO_PARMS" EntityType="Self.IO_PARMS" Schema="" store:Type="Tables" />
+          <EntitySet Name="LATCH_PARMS" EntityType="Self.LATCH_PARMS" Schema="" store:Type="Tables" />
+          <EntitySet Name="LIBRARY_CACHE_PARMS" EntityType="Self.LIBRARY_CACHE_PARMS" Schema="" store:Type="Tables" />
+          <EntitySet Name="ROLLBACK_PARMS" EntityType="Self.ROLLBACK_PARMS" Schema="" store:Type="Tables" />
+          <EntitySet Name="ROW_CACHE_PARMS" EntityType="Self.ROW_CACHE_PARMS" Schema="" store:Type="Tables" />
+          <EntitySet Name="SESS_PARMS" EntityType="Self.SESS_PARMS" Schema="" store:Type="Tables" />
+          <EntitySet Name="SNAPSHOT_PARMS" EntityType="Self.SNAPSHOT_PARMS" Schema="" store:Type="Tables" />
+          <EntitySet Name="SQL_INFO_PARMS" EntityType="Self.SQL_INFO_PARMS" Schema="" store:Type="Tables" />
+          <EntitySet Name="SYS_PARMS" EntityType="Self.SYS_PARMS" Schema="" store:Type="Tables" />
+          <EntitySet Name="SYSSTAT_PARMS" EntityType="Self.SYSSTAT_PARMS" Schema="" store:Type="Tables" />
+          <EntitySet Name="SYSTEM_EVENT_BG_PARMS" EntityType="Self.SYSTEM_EVENT_BG_PARMS" Schema="" store:Type="Tables" />
+          <EntitySet Name="SYSTEM_EVENT_FG_PARMS" EntityType="Self.SYSTEM_EVENT_FG_PARMS" Schema="" store:Type="Tables" />
+          <EntitySet Name="TIME_MODEL_PARMS" EntityType="Self.TIME_MODEL_PARMS" Schema="" store:Type="Tables" />
+          <EntitySet Name="WAIT_CLASS_PARMS" EntityType="Self.WAIT_CLASS_PARMS" Schema="" store:Type="Tables" />
+          <AssociationSet Name="IO_PARMS_FK" Association="Self.IO_PARMS_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="IO_PARMS" EntitySet="IO_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="LATCH_FK" Association="Self.LATCH_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="LATCH_PARMS" EntitySet="LATCH_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="LIBRARY_CASHE_FK" Association="Self.LIBRARY_CASHE_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="LIBRARY_CACHE_PARMS" EntitySet="LIBRARY_CACHE_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="ROLLBACK_FK" Association="Self.ROLLBACK_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="ROLLBACK_PARMS" EntitySet="ROLLBACK_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="ROW_CACHE_FK" Association="Self.ROW_CACHE_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="ROW_CACHE_PARMS" EntitySet="ROW_CACHE_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="SESS_PARMS_FK" Association="Self.SESS_PARMS_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="SESS_PARMS" EntitySet="SESS_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="SNAPSHOT_PARMS_FK" Association="Self.SNAPSHOT_PARMS_FK">
+            <End Role="INSTANCE_PARMS" EntitySet="INSTANCE_PARMS" />
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="SQL_INFO_PARMS_FK" Association="Self.SQL_INFO_PARMS_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="SQL_INFO_PARMS" EntitySet="SQL_INFO_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_PARMS_FK" Association="Self.SYS_PARMS_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="SYS_PARMS" EntitySet="SYS_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="SYSSTAT_PARMS_FK" Association="Self.SYSSTAT_PARMS_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="SYSSTAT_PARMS" EntitySet="SYSSTAT_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="SYSTEM_EVENT_BG_PARMS_FK" Association="Self.SYSTEM_EVENT_BG_PARMS_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="SYSTEM_EVENT_BG_PARMS" EntitySet="SYSTEM_EVENT_BG_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="SYSTEM_EVENT_FG_PARMS_FK" Association="Self.SYSTEM_EVENT_FG_PARMS_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="SYSTEM_EVENT_FG_PARMS" EntitySet="SYSTEM_EVENT_FG_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="TIME_MODEL_PARMS_FK" Association="Self.TIME_MODEL_PARMS_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="TIME_MODEL_PARMS" EntitySet="TIME_MODEL_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="WAIT_CLASS_PARMS_FK" Association="Self.WAIT_CLASS_PARMS_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="WAIT_CLASS_PARMS" EntitySet="WAIT_CLASS_PARMS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="INSTANCE_PARMS" EntityType="Model.INSTANCE_PARMS" />
+          <EntitySet Name="IO_PARMS" EntityType="Model.IO_PARMS" />
+          <EntitySet Name="LATCH_PARMS" EntityType="Model.LATCH_PARMS" />
+          <EntitySet Name="LIBRARY_CACHE_PARMS" EntityType="Model.LIBRARY_CACHE_PARMS" />
+          <EntitySet Name="ROLLBACK_PARMS" EntityType="Model.ROLLBACK_PARMS" />
+          <EntitySet Name="ROW_CACHE_PARMS" EntityType="Model.ROW_CACHE_PARMS" />
+          <EntitySet Name="SESS_PARMS" EntityType="Model.SESS_PARMS" />
+          <EntitySet Name="SNAPSHOT_PARMS" EntityType="Model.SNAPSHOT_PARMS" />
+          <EntitySet Name="SQL_INFO_PARMS" EntityType="Model.SQL_INFO_PARMS" />
+          <EntitySet Name="SYS_PARMS" EntityType="Model.SYS_PARMS" />
+          <EntitySet Name="SYSSTAT_PARMS" EntityType="Model.SYSSTAT_PARMS" />
+          <EntitySet Name="SYSTEM_EVENT_BG_PARMS" EntityType="Model.SYSTEM_EVENT_BG_PARMS" />
+          <EntitySet Name="SYSTEM_EVENT_FG_PARMS" EntityType="Model.SYSTEM_EVENT_FG_PARMS" />
+          <EntitySet Name="TIME_MODEL_PARMS" EntityType="Model.TIME_MODEL_PARMS" />
+          <EntitySet Name="WAIT_CLASS_PARMS" EntityType="Model.WAIT_CLASS_PARMS" />
+          <AssociationSet Name="SNAPSHOT_PARMS_FK" Association="Model.SNAPSHOT_PARMS_FK">
+            <End Role="INSTANCE_PARMS" EntitySet="INSTANCE_PARMS" />
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="IO_PARMS_FK" Association="Model.IO_PARMS_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="IO_PARMS" EntitySet="IO_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="LATCH_FK" Association="Model.LATCH_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="LATCH_PARMS" EntitySet="LATCH_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="LIBRARY_CASHE_FK" Association="Model.LIBRARY_CASHE_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="LIBRARY_CACHE_PARMS" EntitySet="LIBRARY_CACHE_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="ROLLBACK_FK" Association="Model.ROLLBACK_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="ROLLBACK_PARMS" EntitySet="ROLLBACK_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="ROW_CACHE_FK" Association="Model.ROW_CACHE_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="ROW_CACHE_PARMS" EntitySet="ROW_CACHE_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="SESS_PARMS_FK" Association="Model.SESS_PARMS_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="SESS_PARMS" EntitySet="SESS_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="SQL_INFO_PARMS_FK" Association="Model.SQL_INFO_PARMS_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="SQL_INFO_PARMS" EntitySet="SQL_INFO_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_PARMS_FK" Association="Model.SYS_PARMS_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="SYS_PARMS" EntitySet="SYS_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="SYSSTAT_PARMS_FK" Association="Model.SYSSTAT_PARMS_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="SYSSTAT_PARMS" EntitySet="SYSSTAT_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="SYSTEM_EVENT_BG_PARMS_FK" Association="Model.SYSTEM_EVENT_BG_PARMS_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="SYSTEM_EVENT_BG_PARMS" EntitySet="SYSTEM_EVENT_BG_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="SYSTEM_EVENT_FG_PARMS_FK" Association="Model.SYSTEM_EVENT_FG_PARMS_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="SYSTEM_EVENT_FG_PARMS" EntitySet="SYSTEM_EVENT_FG_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="TIME_MODEL_PARMS_FK" Association="Model.TIME_MODEL_PARMS_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="TIME_MODEL_PARMS" EntitySet="TIME_MODEL_PARMS" />
+          </AssociationSet>
+          <AssociationSet Name="WAIT_CLASS_PARMS_FK" Association="Model.WAIT_CLASS_PARMS_FK">
+            <End Role="SNAPSHOT_PARMS" EntitySet="SNAPSHOT_PARMS" />
+            <End Role="WAIT_CLASS_PARMS" EntitySet="WAIT_CLASS_PARMS" />
+          </AssociationSet>
+          <FunctionImport Name="CHANGE_JOB_PRC">
+            <Parameter Name="JOB_NAME" Mode="In" Type="String" />
+            <Parameter Name="PARAM_NAME" Mode="In" Type="String" />
+            <Parameter Name="VAL_NEW" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DELETE_SNAPSHOTS_PRC">
+            <Parameter Name="FIRST_SNAP" Mode="In" Type="Decimal" />
+            <Parameter Name="LAST_SNAP" Mode="In" Type="Decimal" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="INSTANCE_PARMS">
+          <Key>
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="STARTUP_TIME" />
+          </Key>
+          <Property Name="INST_ID" Type="Int64" Nullable="false" />
+          <Property Name="STARTUP_TIME" Type="DateTime" Nullable="false" Precision="6" />
+          <Property Name="DB_VERSION" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="INSTANCE_NAME" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="HOST_NAME" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="PLATFORM_NAME" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SNAPSHOT_PARMS" Relationship="Model.SNAPSHOT_PARMS_FK" FromRole="INSTANCE_PARMS" ToRole="SNAPSHOT_PARMS" />
+        </EntityType>
+        <EntityType Name="IO_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="FILE_NAME" />
+          </Key>
+          <Property Name="SNAP_ID" Type="Int64" Nullable="false" />
+          <Property Name="INST_ID" Type="Int64" Nullable="false" />
+          <Property Name="FILE_NAME" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="BLOCK_READS" Type="Int64" Nullable="false" />
+          <Property Name="BLOCK_WRITES" Type="Int64" Nullable="false" />
+          <Property Name="TOTAL_IO" Type="Int64" Nullable="false" />
+          <Property Name="WRITE_TIME" Type="Int64" Nullable="false" />
+          <Property Name="READ_TIME" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="SNAPSHOT_PARMS" Relationship="Model.IO_PARMS_FK" FromRole="IO_PARMS" ToRole="SNAPSHOT_PARMS" />
+        </EntityType>
+        <EntityType Name="LATCH_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+          </Key>
+          <Property Name="SNAP_ID" Type="Int64" Nullable="false" />
+          <Property Name="INST_ID" Type="Int64" Nullable="false" />
+          <Property Name="GETS" Type="Int64" Nullable="false" />
+          <Property Name="MISSES" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="SNAPSHOT_PARMS" Relationship="Model.LATCH_FK" FromRole="LATCH_PARMS" ToRole="SNAPSHOT_PARMS" />
+        </EntityType>
+        <EntityType Name="LIBRARY_CACHE_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+          </Key>
+          <Property Name="SNAP_ID" Type="Int64" Nullable="false" />
+          <Property Name="INST_ID" Type="Int64" Nullable="false" />
+          <Property Name="PINS" Type="Int64" Nullable="false" />
+          <Property Name="RELOADS" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="SNAPSHOT_PARMS" Relationship="Model.LIBRARY_CASHE_FK" FromRole="LIBRARY_CACHE_PARMS" ToRole="SNAPSHOT_PARMS" />
+        </EntityType>
+        <EntityType Name="ROLLBACK_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+          </Key>
+          <Property Name="SNAP_ID" Type="Int64" Nullable="false" />
+          <Property Name="INST_ID" Type="Int64" Nullable="false" />
+          <Property Name="WAITS" Type="Int64" Nullable="false" />
+          <Property Name="GETS" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="SNAPSHOT_PARMS" Relationship="Model.ROLLBACK_FK" FromRole="ROLLBACK_PARMS" ToRole="SNAPSHOT_PARMS" />
+        </EntityType>
+        <EntityType Name="ROW_CACHE_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+          </Key>
+          <Property Name="SNAP_ID" Type="Int64" Nullable="false" />
+          <Property Name="INST_ID" Type="Int64" Nullable="false" />
+          <Property Name="GETS" Type="Int64" Nullable="false" />
+          <Property Name="GETMISSES" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="SNAPSHOT_PARMS" Relationship="Model.ROW_CACHE_FK" FromRole="ROW_CACHE_PARMS" ToRole="SNAPSHOT_PARMS" />
+        </EntityType>
+        <EntityType Name="SESS_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="SID_NUM" />
+          </Key>
+          <Property Name="SNAP_ID" Type="Int64" Nullable="false" />
+          <Property Name="INST_ID" Type="Int64" Nullable="false" />
+          <Property Name="SID_NUM" Type="Int64" Nullable="false" />
+          <Property Name="VAL" Type="Int64" Nullable="false" />
+          <Property Name="USERNAME" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="PROGRAM_NAME" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SNAPSHOT_PARMS" Relationship="Model.SESS_PARMS_FK" FromRole="SESS_PARMS" ToRole="SNAPSHOT_PARMS" />
+        </EntityType>
+        <EntityType Name="SNAPSHOT_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+          </Key>
+          <Property Name="SNAP_ID" Type="Int64" Nullable="false" />
+          <Property Name="INST_ID" Type="Int64" Nullable="false" />
+          <Property Name="SNAP_TIME" Type="DateTime" Nullable="false" Precision="6" />
+          <Property Name="STARTUP_TIME" Type="DateTime" Nullable="false" Precision="6" />
+          <Property Name="SESSION_ID" Type="Int64" Nullable="false" />
+          <Property Name="SERIAL_" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="INSTANCE_PARMS" Relationship="Model.SNAPSHOT_PARMS_FK" FromRole="SNAPSHOT_PARMS" ToRole="INSTANCE_PARMS" />
+          <NavigationProperty Name="IO_PARMS" Relationship="Model.IO_PARMS_FK" FromRole="SNAPSHOT_PARMS" ToRole="IO_PARMS" />
+          <NavigationProperty Name="LATCH_PARMS" Relationship="Model.LATCH_FK" FromRole="SNAPSHOT_PARMS" ToRole="LATCH_PARMS" />
+          <NavigationProperty Name="LIBRARY_CACHE_PARMS" Relationship="Model.LIBRARY_CASHE_FK" FromRole="SNAPSHOT_PARMS" ToRole="LIBRARY_CACHE_PARMS" />
+          <NavigationProperty Name="ROLLBACK_PARMS" Relationship="Model.ROLLBACK_FK" FromRole="SNAPSHOT_PARMS" ToRole="ROLLBACK_PARMS" />
+          <NavigationProperty Name="ROW_CACHE_PARMS" Relationship="Model.ROW_CACHE_FK" FromRole="SNAPSHOT_PARMS" ToRole="ROW_CACHE_PARMS" />
+          <NavigationProperty Name="SESS_PARMS" Relationship="Model.SESS_PARMS_FK" FromRole="SNAPSHOT_PARMS" ToRole="SESS_PARMS" />
+          <NavigationProperty Name="SQL_INFO_PARMS" Relationship="Model.SQL_INFO_PARMS_FK" FromRole="SNAPSHOT_PARMS" ToRole="SQL_INFO_PARMS" />
+          <NavigationProperty Name="SYS_PARMS" Relationship="Model.SYS_PARMS_FK" FromRole="SNAPSHOT_PARMS" ToRole="SYS_PARMS" />
+          <NavigationProperty Name="SYSSTAT_PARMS" Relationship="Model.SYSSTAT_PARMS_FK" FromRole="SNAPSHOT_PARMS" ToRole="SYSSTAT_PARMS" />
+          <NavigationProperty Name="SYSTEM_EVENT_BG_PARMS" Relationship="Model.SYSTEM_EVENT_BG_PARMS_FK" FromRole="SNAPSHOT_PARMS" ToRole="SYSTEM_EVENT_BG_PARMS" />
+          <NavigationProperty Name="SYSTEM_EVENT_FG_PARMS" Relationship="Model.SYSTEM_EVENT_FG_PARMS_FK" FromRole="SNAPSHOT_PARMS" ToRole="SYSTEM_EVENT_FG_PARMS" />
+          <NavigationProperty Name="TIME_MODEL_PARMS" Relationship="Model.TIME_MODEL_PARMS_FK" FromRole="SNAPSHOT_PARMS" ToRole="TIME_MODEL_PARMS" />
+          <NavigationProperty Name="WAIT_CLASS_PARMS" Relationship="Model.WAIT_CLASS_PARMS_FK" FromRole="SNAPSHOT_PARMS" ToRole="WAIT_CLASS_PARMS" />
+        </EntityType>
+        <EntityType Name="SQL_INFO_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="SQL_ID" />
+          </Key>
+          <Property Name="SNAP_ID" Type="Int64" Nullable="false" />
+          <Property Name="INST_ID" Type="Int64" Nullable="false" />
+          <Property Name="SQL_ID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PARSE_CALLS" Type="Int64" Nullable="false" />
+          <Property Name="LOADS" Type="Int64" Nullable="false" />
+          <Property Name="INVALIDATIONS" Type="Int64" Nullable="false" />
+          <Property Name="ELAPSED_TIME" Type="Int64" Nullable="false" />
+          <Property Name="CPU_TIME" Type="Int64" Nullable="false" />
+          <Property Name="EXECUTIONS" Type="Int64" Nullable="false" />
+          <Property Name="APPLICATION_WAIT_TIME" Type="Int64" Nullable="false" />
+          <Property Name="CONCURRENCY_WAIT_TIME" Type="Int64" Nullable="false" />
+          <Property Name="USER_IO_WAIT_TIME" Type="Int64" Nullable="false" />
+          <Property Name="PLSQL_EXEC_TIME" Type="Int64" Nullable="false" />
+          <Property Name="JAVA_EXEC_TIME" Type="Int64" Nullable="false" />
+          <Property Name="BUFFER_GETS" Type="Int64" Nullable="false" />
+          <Property Name="DISK_READS" Type="Int64" Nullable="false" />
+          <Property Name="DIRECT_WRITES" Type="Int64" Nullable="false" />
+          <Property Name="ROWS_PROCESSED" Type="Int64" Nullable="false" />
+          <Property Name="FETCHES" Type="Int64" Nullable="false" />
+          <Property Name="SERIALIZABLE_ABORTS" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="SNAPSHOT_PARMS" Relationship="Model.SQL_INFO_PARMS_FK" FromRole="SQL_INFO_PARMS" ToRole="SNAPSHOT_PARMS" />
+        </EntityType>
+        <EntityType Name="SYS_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="STAT_NAME" />
+          </Key>
+          <Property Name="SNAP_ID" Type="Int64" Nullable="false" />
+          <Property Name="INST_ID" Type="Int64" Nullable="false" />
+          <Property Name="STAT_NAME" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="VAL" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="SNAPSHOT_PARMS" Relationship="Model.SYS_PARMS_FK" FromRole="SYS_PARMS" ToRole="SNAPSHOT_PARMS" />
+        </EntityType>
+        <EntityType Name="SYSSTAT_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="STAT_NAME" />
+          </Key>
+          <Property Name="SNAP_ID" Type="Int64" Nullable="false" />
+          <Property Name="INST_ID" Type="Int64" Nullable="false" />
+          <Property Name="STAT_NAME" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="VAL" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="SNAPSHOT_PARMS" Relationship="Model.SYSSTAT_PARMS_FK" FromRole="SYSSTAT_PARMS" ToRole="SNAPSHOT_PARMS" />
+        </EntityType>
+        <EntityType Name="SYSTEM_EVENT_BG_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="EVENT" />
+          </Key>
+          <Property Name="SNAP_ID" Type="Int64" Nullable="false" />
+          <Property Name="INST_ID" Type="Int64" Nullable="false" />
+          <Property Name="EVENT" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="TOTAL_WAITS" Type="Int64" Nullable="false" />
+          <Property Name="TIME_WAITED" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="SNAPSHOT_PARMS" Relationship="Model.SYSTEM_EVENT_BG_PARMS_FK" FromRole="SYSTEM_EVENT_BG_PARMS" ToRole="SNAPSHOT_PARMS" />
+        </EntityType>
+        <EntityType Name="SYSTEM_EVENT_FG_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="EVENT" />
+          </Key>
+          <Property Name="SNAP_ID" Type="Int64" Nullable="false" />
+          <Property Name="INST_ID" Type="Int64" Nullable="false" />
+          <Property Name="EVENT" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="TOTAL_WAITS_FG" Type="Int64" Nullable="false" />
+          <Property Name="TIME_WAITED_FG" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="SNAPSHOT_PARMS" Relationship="Model.SYSTEM_EVENT_FG_PARMS_FK" FromRole="SYSTEM_EVENT_FG_PARMS" ToRole="SNAPSHOT_PARMS" />
+        </EntityType>
+        <EntityType Name="TIME_MODEL_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="STAT_NAME" />
+          </Key>
+          <Property Name="SNAP_ID" Type="Int64" Nullable="false" />
+          <Property Name="INST_ID" Type="Int64" Nullable="false" />
+          <Property Name="STAT_NAME" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="VAL" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="SNAPSHOT_PARMS" Relationship="Model.TIME_MODEL_PARMS_FK" FromRole="TIME_MODEL_PARMS" ToRole="SNAPSHOT_PARMS" />
+        </EntityType>
+        <EntityType Name="WAIT_CLASS_PARMS">
+          <Key>
+            <PropertyRef Name="SNAP_ID" />
+            <PropertyRef Name="INST_ID" />
+            <PropertyRef Name="WAIT_CLASS" />
+          </Key>
+          <Property Name="SNAP_ID" Type="Int64" Nullable="false" />
+          <Property Name="INST_ID" Type="Int64" Nullable="false" />
+          <Property Name="WAIT_CLASS" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TIME_WAITED" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="SNAPSHOT_PARMS" Relationship="Model.WAIT_CLASS_PARMS_FK" FromRole="WAIT_CLASS_PARMS" ToRole="SNAPSHOT_PARMS" />
+        </EntityType>
+        <Association Name="SNAPSHOT_PARMS_FK">
+          <End Type="Model.INSTANCE_PARMS" Role="INSTANCE_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.SNAPSHOT_PARMS" Role="SNAPSHOT_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INSTANCE_PARMS">
+              <PropertyRef Name="INST_ID" />
+              <PropertyRef Name="STARTUP_TIME" />
+            </Principal>
+            <Dependent Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="INST_ID" />
+              <PropertyRef Name="STARTUP_TIME" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IO_PARMS_FK">
+          <End Type="Model.SNAPSHOT_PARMS" Role="SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.IO_PARMS" Role="IO_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="IO_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LATCH_FK">
+          <End Type="Model.SNAPSHOT_PARMS" Role="SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.LATCH_PARMS" Role="LATCH_PARMS" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="LATCH_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LIBRARY_CASHE_FK">
+          <End Type="Model.SNAPSHOT_PARMS" Role="SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.LIBRARY_CACHE_PARMS" Role="LIBRARY_CACHE_PARMS" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="LIBRARY_CACHE_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ROLLBACK_FK">
+          <End Type="Model.SNAPSHOT_PARMS" Role="SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.ROLLBACK_PARMS" Role="ROLLBACK_PARMS" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="ROLLBACK_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ROW_CACHE_FK">
+          <End Type="Model.SNAPSHOT_PARMS" Role="SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.ROW_CACHE_PARMS" Role="ROW_CACHE_PARMS" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="ROW_CACHE_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SESS_PARMS_FK">
+          <End Type="Model.SNAPSHOT_PARMS" Role="SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.SESS_PARMS" Role="SESS_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="SESS_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SQL_INFO_PARMS_FK">
+          <End Type="Model.SNAPSHOT_PARMS" Role="SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.SQL_INFO_PARMS" Role="SQL_INFO_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="SQL_INFO_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_PARMS_FK">
+          <End Type="Model.SNAPSHOT_PARMS" Role="SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.SYS_PARMS" Role="SYS_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="SYS_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYSSTAT_PARMS_FK">
+          <End Type="Model.SNAPSHOT_PARMS" Role="SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.SYSSTAT_PARMS" Role="SYSSTAT_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="SYSSTAT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYSTEM_EVENT_BG_PARMS_FK">
+          <End Type="Model.SNAPSHOT_PARMS" Role="SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.SYSTEM_EVENT_BG_PARMS" Role="SYSTEM_EVENT_BG_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="SYSTEM_EVENT_BG_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYSTEM_EVENT_FG_PARMS_FK">
+          <End Type="Model.SNAPSHOT_PARMS" Role="SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.SYSTEM_EVENT_FG_PARMS" Role="SYSTEM_EVENT_FG_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="SYSTEM_EVENT_FG_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TIME_MODEL_PARMS_FK">
+          <End Type="Model.SNAPSHOT_PARMS" Role="SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.TIME_MODEL_PARMS" Role="TIME_MODEL_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="TIME_MODEL_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="WAIT_CLASS_PARMS_FK">
+          <End Type="Model.SNAPSHOT_PARMS" Role="SNAPSHOT_PARMS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.WAIT_CLASS_PARMS" Role="WAIT_CLASS_PARMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SNAPSHOT_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Principal>
+            <Dependent Role="WAIT_CLASS_PARMS">
+              <PropertyRef Name="SNAP_ID" />
+              <PropertyRef Name="INST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="INSTANCE_PARMS">
+            <EntityTypeMapping TypeName="Model.INSTANCE_PARMS">
+              <MappingFragment StoreEntitySet="INSTANCE_PARMS">
+                <ScalarProperty Name="PLATFORM_NAME" ColumnName="PLATFORM_NAME" />
+                <ScalarProperty Name="HOST_NAME" ColumnName="HOST_NAME" />
+                <ScalarProperty Name="INSTANCE_NAME" ColumnName="INSTANCE_NAME" />
+                <ScalarProperty Name="DB_VERSION" ColumnName="DB_VERSION" />
+                <ScalarProperty Name="STARTUP_TIME" ColumnName="STARTUP_TIME" />
+                <ScalarProperty Name="INST_ID" ColumnName="INST_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IO_PARMS">
+            <EntityTypeMapping TypeName="Model.IO_PARMS">
+              <MappingFragment StoreEntitySet="IO_PARMS">
+                <ScalarProperty Name="READ_TIME" ColumnName="READ_TIME" />
+                <ScalarProperty Name="WRITE_TIME" ColumnName="WRITE_TIME" />
+                <ScalarProperty Name="TOTAL_IO" ColumnName="TOTAL_IO" />
+                <ScalarProperty Name="BLOCK_WRITES" ColumnName="BLOCK_WRITES" />
+                <ScalarProperty Name="BLOCK_READS" ColumnName="BLOCK_READS" />
+                <ScalarProperty Name="FILE_NAME" ColumnName="FILE_NAME" />
+                <ScalarProperty Name="INST_ID" ColumnName="INST_ID" />
+                <ScalarProperty Name="SNAP_ID" ColumnName="SNAP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LATCH_PARMS">
+            <EntityTypeMapping TypeName="Model.LATCH_PARMS">
+              <MappingFragment StoreEntitySet="LATCH_PARMS">
+                <ScalarProperty Name="MISSES" ColumnName="MISSES" />
+                <ScalarProperty Name="GETS" ColumnName="GETS" />
+                <ScalarProperty Name="INST_ID" ColumnName="INST_ID" />
+                <ScalarProperty Name="SNAP_ID" ColumnName="SNAP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LIBRARY_CACHE_PARMS">
+            <EntityTypeMapping TypeName="Model.LIBRARY_CACHE_PARMS">
+              <MappingFragment StoreEntitySet="LIBRARY_CACHE_PARMS">
+                <ScalarProperty Name="RELOADS" ColumnName="RELOADS" />
+                <ScalarProperty Name="PINS" ColumnName="PINS" />
+                <ScalarProperty Name="INST_ID" ColumnName="INST_ID" />
+                <ScalarProperty Name="SNAP_ID" ColumnName="SNAP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLLBACK_PARMS">
+            <EntityTypeMapping TypeName="Model.ROLLBACK_PARMS">
+              <MappingFragment StoreEntitySet="ROLLBACK_PARMS">
+                <ScalarProperty Name="GETS" ColumnName="GETS" />
+                <ScalarProperty Name="WAITS" ColumnName="WAITS" />
+                <ScalarProperty Name="INST_ID" ColumnName="INST_ID" />
+                <ScalarProperty Name="SNAP_ID" ColumnName="SNAP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROW_CACHE_PARMS">
+            <EntityTypeMapping TypeName="Model.ROW_CACHE_PARMS">
+              <MappingFragment StoreEntitySet="ROW_CACHE_PARMS">
+                <ScalarProperty Name="GETMISSES" ColumnName="GETMISSES" />
+                <ScalarProperty Name="GETS" ColumnName="GETS" />
+                <ScalarProperty Name="INST_ID" ColumnName="INST_ID" />
+                <ScalarProperty Name="SNAP_ID" ColumnName="SNAP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SESS_PARMS">
+            <EntityTypeMapping TypeName="Model.SESS_PARMS">
+              <MappingFragment StoreEntitySet="SESS_PARMS">
+                <ScalarProperty Name="PROGRAM_NAME" ColumnName="PROGRAM_NAME" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="VAL" ColumnName="VAL" />
+                <ScalarProperty Name="SID_NUM" ColumnName="SID_NUM" />
+                <ScalarProperty Name="INST_ID" ColumnName="INST_ID" />
+                <ScalarProperty Name="SNAP_ID" ColumnName="SNAP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SNAPSHOT_PARMS">
+            <EntityTypeMapping TypeName="Model.SNAPSHOT_PARMS">
+              <MappingFragment StoreEntitySet="SNAPSHOT_PARMS">
+                <ScalarProperty Name="SERIAL_" ColumnName="SERIAL#" />
+                <ScalarProperty Name="SESSION_ID" ColumnName="SESSION_ID" />
+                <ScalarProperty Name="STARTUP_TIME" ColumnName="STARTUP_TIME" />
+                <ScalarProperty Name="SNAP_TIME" ColumnName="SNAP_TIME" />
+                <ScalarProperty Name="INST_ID" ColumnName="INST_ID" />
+                <ScalarProperty Name="SNAP_ID" ColumnName="SNAP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SQL_INFO_PARMS">
+            <EntityTypeMapping TypeName="Model.SQL_INFO_PARMS">
+              <MappingFragment StoreEntitySet="SQL_INFO_PARMS">
+                <ScalarProperty Name="SERIALIZABLE_ABORTS" ColumnName="SERIALIZABLE_ABORTS" />
+                <ScalarProperty Name="FETCHES" ColumnName="FETCHES" />
+                <ScalarProperty Name="ROWS_PROCESSED" ColumnName="ROWS_PROCESSED" />
+                <ScalarProperty Name="DIRECT_WRITES" ColumnName="DIRECT_WRITES" />
+                <ScalarProperty Name="DISK_READS" ColumnName="DISK_READS" />
+                <ScalarProperty Name="BUFFER_GETS" ColumnName="BUFFER_GETS" />
+                <ScalarProperty Name="JAVA_EXEC_TIME" ColumnName="JAVA_EXEC_TIME" />
+                <ScalarProperty Name="PLSQL_EXEC_TIME" ColumnName="PLSQL_EXEC_TIME" />
+                <ScalarProperty Name="USER_IO_WAIT_TIME" ColumnName="USER_IO_WAIT_TIME" />
+                <ScalarProperty Name="CONCURRENCY_WAIT_TIME" ColumnName="CONCURRENCY_WAIT_TIME" />
+                <ScalarProperty Name="APPLICATION_WAIT_TIME" ColumnName="APPLICATION_WAIT_TIME" />
+                <ScalarProperty Name="EXECUTIONS" ColumnName="EXECUTIONS" />
+                <ScalarProperty Name="CPU_TIME" ColumnName="CPU_TIME" />
+                <ScalarProperty Name="ELAPSED_TIME" ColumnName="ELAPSED_TIME" />
+                <ScalarProperty Name="INVALIDATIONS" ColumnName="INVALIDATIONS" />
+                <ScalarProperty Name="LOADS" ColumnName="LOADS" />
+                <ScalarProperty Name="PARSE_CALLS" ColumnName="PARSE_CALLS" />
+                <ScalarProperty Name="SQL_ID" ColumnName="SQL_ID" />
+                <ScalarProperty Name="INST_ID" ColumnName="INST_ID" />
+                <ScalarProperty Name="SNAP_ID" ColumnName="SNAP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYS_PARMS">
+            <EntityTypeMapping TypeName="Model.SYS_PARMS">
+              <MappingFragment StoreEntitySet="SYS_PARMS">
+                <ScalarProperty Name="VAL" ColumnName="VAL" />
+                <ScalarProperty Name="STAT_NAME" ColumnName="STAT_NAME" />
+                <ScalarProperty Name="INST_ID" ColumnName="INST_ID" />
+                <ScalarProperty Name="SNAP_ID" ColumnName="SNAP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYSSTAT_PARMS">
+            <EntityTypeMapping TypeName="Model.SYSSTAT_PARMS">
+              <MappingFragment StoreEntitySet="SYSSTAT_PARMS">
+                <ScalarProperty Name="VAL" ColumnName="VAL" />
+                <ScalarProperty Name="STAT_NAME" ColumnName="STAT_NAME" />
+                <ScalarProperty Name="INST_ID" ColumnName="INST_ID" />
+                <ScalarProperty Name="SNAP_ID" ColumnName="SNAP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYSTEM_EVENT_BG_PARMS">
+            <EntityTypeMapping TypeName="Model.SYSTEM_EVENT_BG_PARMS">
+              <MappingFragment StoreEntitySet="SYSTEM_EVENT_BG_PARMS">
+                <ScalarProperty Name="TIME_WAITED" ColumnName="TIME_WAITED" />
+                <ScalarProperty Name="TOTAL_WAITS" ColumnName="TOTAL_WAITS" />
+                <ScalarProperty Name="EVENT" ColumnName="EVENT" />
+                <ScalarProperty Name="INST_ID" ColumnName="INST_ID" />
+                <ScalarProperty Name="SNAP_ID" ColumnName="SNAP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYSTEM_EVENT_FG_PARMS">
+            <EntityTypeMapping TypeName="Model.SYSTEM_EVENT_FG_PARMS">
+              <MappingFragment StoreEntitySet="SYSTEM_EVENT_FG_PARMS">
+                <ScalarProperty Name="TIME_WAITED_FG" ColumnName="TIME_WAITED_FG" />
+                <ScalarProperty Name="TOTAL_WAITS_FG" ColumnName="TOTAL_WAITS_FG" />
+                <ScalarProperty Name="EVENT" ColumnName="EVENT" />
+                <ScalarProperty Name="INST_ID" ColumnName="INST_ID" />
+                <ScalarProperty Name="SNAP_ID" ColumnName="SNAP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIME_MODEL_PARMS">
+            <EntityTypeMapping TypeName="Model.TIME_MODEL_PARMS">
+              <MappingFragment StoreEntitySet="TIME_MODEL_PARMS">
+                <ScalarProperty Name="VAL" ColumnName="VAL" />
+                <ScalarProperty Name="STAT_NAME" ColumnName="STAT_NAME" />
+                <ScalarProperty Name="INST_ID" ColumnName="INST_ID" />
+                <ScalarProperty Name="SNAP_ID" ColumnName="SNAP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WAIT_CLASS_PARMS">
+            <EntityTypeMapping TypeName="Model.WAIT_CLASS_PARMS">
+              <MappingFragment StoreEntitySet="WAIT_CLASS_PARMS">
+                <ScalarProperty Name="TIME_WAITED" ColumnName="TIME_WAITED" />
+                <ScalarProperty Name="WAIT_CLASS" ColumnName="WAIT_CLASS" />
+                <ScalarProperty Name="INST_ID" ColumnName="INST_ID" />
+                <ScalarProperty Name="SNAP_ID" ColumnName="SNAP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CHANGE_JOB_PRC" FunctionName="Model.Store.CHANGE_JOB_PRC" />
+          <FunctionImportMapping FunctionImportName="DELETE_SNAPSHOTS_PRC" FunctionName="Model.Store.DELETE_SNAPSHOTS_PRC" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
